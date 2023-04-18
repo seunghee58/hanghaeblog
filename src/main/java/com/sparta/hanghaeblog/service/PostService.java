@@ -1,5 +1,6 @@
 package com.sparta.hanghaeblog.service;
 
+import com.sparta.hanghaeblog.dto.PostDeleteDto;
 import com.sparta.hanghaeblog.dto.PostRequestDto;
 import com.sparta.hanghaeblog.dto.PostResponseDto;
 import com.sparta.hanghaeblog.entity.Post;
@@ -25,12 +26,13 @@ public class PostService {
     }
 
     // 전체 Post 조회
+    @Transactional
     public List<Post> getPosts() {
         return postRepository.findAllByOrderByModifiedAtDesc();
     }
 
     // 선택 Post 조회
-
+    @Transactional(readOnly = true)
     public PostResponseDto getPost(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("아이디가 일치하지 않습니다."));
@@ -41,32 +43,39 @@ public class PostService {
 
     // Post 수정
     @Transactional
-    public Long updatepost(Long id, PostRequestDto requestDto, String password) {
+    public PostResponseDto updatepost(Long id, String password) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
 
-        if (!post.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        PostResponseDto postResponseDto = new PostResponseDto(post);
+        if (post.getPassword().equals(password)) {
+            post.update(postResponseDto);
+            return postResponseDto;
+        } else {
+            return postResponseDto;
         }
 
-        post.update(requestDto);
-        return post.getId();
     }
 
     // Post 삭제
     @Transactional
-    public String deletepost(Long id, String password) {
+    public PostDeleteDto deletepost (Long id, String password) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
 
-        if (!post.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        PostDeleteDto postDeleteDto = new PostDeleteDto();
+        if (post.getPassword().equals(password)) {
+            postRepository.deleteById(id);
+            postDeleteDto.setMsg("게시글 삭제가 완료되었습니다.");
+        } else {
+            postDeleteDto.setMsg("비밀번호가 일치하지 않습니다");
         }
 
-        postRepository.delete(post);
-        return "게시글 삭제가 완료되었습니다.";
+        return postDeleteDto;
+
     }
+
 
 }

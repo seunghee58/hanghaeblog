@@ -1,5 +1,6 @@
 package com.sparta.hanghaeblog.controlloer;
 
+import com.sparta.hanghaeblog.dto.PostDeleteDto;
 import com.sparta.hanghaeblog.dto.PostRequestDto;
 import com.sparta.hanghaeblog.dto.PostResponseDto;
 import com.sparta.hanghaeblog.entity.Post;
@@ -18,7 +19,7 @@ public class PostController {
     // Post 작성 API
     @PostMapping("/api/posts")
     public Post createPost(@RequestBody PostRequestDto requestDto) {
-        return postService.createPost(new PostRequestDto(requestDto.getTitle(), requestDto.getUsername(), requestDto.getContents(), requestDto.getPassword()));
+        return postService.createPost(requestDto);
     }
 
     // 전체 Post 조회 API
@@ -35,13 +36,13 @@ public class PostController {
 
     // Post 수정 API
     @PutMapping("/api/posts/{id}")
-    public Long updateMemo(@PathVariable Long id, @RequestBody PostRequestDto requestDto, @RequestParam String password) {
-        return postService.updatepost(id, requestDto, password);
-    }
+    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
+        return postService.updatepost(id, postRequestDto.getPassword());
+}
 
     // Post 삭제 API
     @DeleteMapping("/api/posts/{id}")
-    public String deletePost(@PathVariable Long id, @RequestParam String password) {
-        return postService.deletepost(id, password);
+    public PostDeleteDto deletePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
+        return postService.deletepost(id, postRequestDto.getPassword());
     }
 }
