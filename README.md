@@ -28,7 +28,7 @@ Goal:  "스프링 부트로 로그인 기능이 없는 나만의 항해 블로�
 
 # ➿ Use Case
 
-<img width="339" alt="스크린샷 2023-04-18 095432" src="https://user-images.githubusercontent.com/129656095/232749401-bc1728e2-f357-4318-9cca-a2c9f8d40e0f.png">
+<img width="431" alt="스크린샷 2023-04-18 193223" src="https://user-images.githubusercontent.com/129656095/232751167-03bca18a-c7bf-4f82-b865-f55a2acdef0f.png">
 
 # ➿ API 명세서
 
