@@ -1,7 +1,6 @@
 package com.sparta.hanghaeblog.entity;
 
 import com.sparta.hanghaeblog.dto.PostRequestDto;
-import com.sparta.hanghaeblog.dto.PostResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,7 +34,7 @@ public class Post extends Timestamped {
         this.password = requestDto.getPassword();
     }
 
-    public void update(PostResponseDto requestDto) {
+    public void update(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();

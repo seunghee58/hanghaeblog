@@ -43,19 +43,19 @@ public class PostService {
 
     // Post 수정
     @Transactional
-    public PostResponseDto updatepost(Long id, String password) {
+    public PostResponseDto updatepost(Long id, PostRequestDto postRequestDto, String password) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
 
         PostResponseDto postResponseDto = new PostResponseDto(post);
         if (post.getPassword().equals(password)) {
-            post.update(postResponseDto);
-            return postResponseDto;
+            post.update(postRequestDto);
+            postRepository.save(post);
+            return new PostResponseDto(post);
         } else {
-            return postResponseDto;
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-
     }
 
     // Post 삭제

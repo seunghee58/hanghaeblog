@@ -37,7 +37,7 @@ public class PostController {
     // Post 수정 API
     @PutMapping("/api/posts/{id}")
     public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
-        return postService.updatepost(id, postRequestDto.getPassword());
+        return postService.updatepost(id,postRequestDto, postRequestDto.getPassword());
 }
 
     // Post 삭제 API
