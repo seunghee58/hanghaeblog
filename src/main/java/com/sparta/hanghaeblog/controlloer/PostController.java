@@ -18,7 +18,7 @@ public class PostController {
 
     // Post 작성 API
     @PostMapping("/api/posts")
-    public Post createPost(@RequestBody PostRequestDto requestDto) {
+    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto) {  // 객체 형식으로 넘어오기 때문에 RequestBody를 사용
         return postService.createPost(requestDto);
     }
 

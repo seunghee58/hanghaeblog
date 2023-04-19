@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public class Timestamped {
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // 작성 시간
 
     @LastModifiedDate
-    private LocalDateTime modifiedAt;
+    private LocalDateTime modifiedAt; // 수정된 시간
 }

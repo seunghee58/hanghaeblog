@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostDeleteDto {
+public class PostDeleteDto { // 게시글 삭제와 관련된 데이터를 전송하기 위한 DTO
+
     private String msg;
 
     public void setMsg(String msg){

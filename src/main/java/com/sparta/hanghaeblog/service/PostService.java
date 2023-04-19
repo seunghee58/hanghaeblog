@@ -15,21 +15,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService {
 
-    private final PostRepository postRepository;
+    private final PostRepository postRepository; // 데이터베이스와 연결
 
     // Post 작성
     @Transactional
-    public Post createPost(PostRequestDto requestDto) {
+    public PostResponseDto createPost(PostRequestDto requestDto) {
         Post post = new Post(requestDto);
         postRepository.save(post);
-        return post;
+        return new PostResponseDto(post);
     }
 
     // 전체 Post 조회
     @Transactional
     public List<Post> getPosts() {
         return postRepository.findAllByOrderByModifiedAtDesc();
-    }
+    } // 내림차순 정렬
 
     // 선택 Post 조회
     @Transactional(readOnly = true)
